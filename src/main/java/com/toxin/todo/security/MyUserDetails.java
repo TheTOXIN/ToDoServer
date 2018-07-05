@@ -1,8 +1,11 @@
 package com.toxin.todo.security;
 
 import com.toxin.todo.entity.User;
+import lombok.EqualsAndHashCode;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -12,7 +15,7 @@ public class MyUserDetails extends User implements UserDetails {
     MyUserDetails(User user) {
         super.setId(user.getId());
         super.setLogin(user.getLogin());
-        super.setPassword(user.getPassword());
+        super.setHash(user.getHash());
         super.setRole(user.getRole());
     }
 
@@ -24,6 +27,11 @@ public class MyUserDetails extends User implements UserDetails {
     @Override
     public String getUsername() {
         return super.getLogin();
+    }
+
+    @Override
+    public String getPassword() {
+        return super.getHash();
     }
 
     @Override

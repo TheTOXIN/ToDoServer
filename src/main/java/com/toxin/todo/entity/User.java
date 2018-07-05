@@ -24,7 +24,7 @@ public class User {
 
     @JsonIgnore
     @Column(nullable = false)
-    private String password;
+    private String hash;
 
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     @ManyToOne(optional = false)

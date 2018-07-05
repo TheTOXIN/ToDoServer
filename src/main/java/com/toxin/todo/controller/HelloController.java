@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloController {
 
-    @Value("${spring.data.rest.base-path}")
+    @Value("${todo.hello}")
     private String hello;
 
     @GetMapping("/hello")

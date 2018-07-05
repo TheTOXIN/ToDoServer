@@ -8,13 +8,9 @@ import com.toxin.todo.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.UUID;
-
-import static com.toxin.todo.enums.RoleEnum.*;
 
 @Service
 @Transactional
@@ -24,17 +20,24 @@ public class Initializer {
 
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public Initializer(RoleRepository roleRepository, UserRepository userRepository) {
+    public Initializer(
+        RoleRepository roleRepository,
+        UserRepository userRepository,
+        PasswordEncoder passwordEncoder
+    ) {
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public void init() {
         log.info("-=START INIT=-");
         createRoles();
         createAdmin();
+        createUser();
         log.info("-=END INIT=-");
     }
 
@@ -50,12 +53,25 @@ public class Initializer {
     }
 
     private void createAdmin() {
+        if (userRepository.findByLogin("admin") != null) return;
+
         User admin = new User();
 
         admin.setLogin("admin");
-        admin.setPassword("root");
-        admin.setId(new UUID(0, 0));
+        admin.setHash(passwordEncoder.encode("root"));
         admin.setRole(roleRepository.findById(RoleEnum.ADMIN.getId()).orElse(null));
+
+        userRepository.save(admin);
+    }
+
+    private void createUser() {
+        if (userRepository.findByLogin("user") != null) return;
+
+        User admin = new User();
+
+        admin.setLogin("user");
+        admin.setHash(passwordEncoder.encode("root"));
+        admin.setRole(roleRepository.findById(RoleEnum.USER.getId()).orElse(null));
 
         userRepository.save(admin);
     }

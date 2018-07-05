@@ -35,7 +35,7 @@ public class OAuthServiceImpl implements OAuthService {
         if (user == null) {
             user = new User();
             user.setLogin(request.getLogin());
-            user.setPassword(request.getPassword());
+            user.setHash(request.getPassword());
 
             return userRepository.save(user).getId();
         }
@@ -46,7 +46,7 @@ public class OAuthServiceImpl implements OAuthService {
     private UUID in(OAuthDtoRequest request) {
         User user = userRepository.findByLogin(request.getLogin());
 
-        if (user != null && user.getPassword().equals(request.getPassword())) {
+        if (user != null && user.getHash().equals(request.getPassword())) {
             return user.getId();
         }
 
