@@ -10,6 +10,6 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OAuthDtoResponse implements Serializable {
+public class SignDtoResponse implements Serializable {
     private UUID userId;
 }

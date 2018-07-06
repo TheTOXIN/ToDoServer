@@ -23,7 +23,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         http.authorizeRequests()
             .antMatchers("/rest/**").hasRole(RoleEnum.ADMIN.name())
             .antMatchers("/rest/tasks/").hasRole(RoleEnum.USER.name())
-            .antMatchers("/login/**").authenticated()
             .antMatchers("/todo/**").authenticated()
             .antMatchers("/hello").anonymous();
     }

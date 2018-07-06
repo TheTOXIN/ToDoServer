@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OAuthDtoRequest implements Serializable {
+public class SignDtoRequest implements Serializable {
     private String login;
     private String password;
     private boolean reg;
