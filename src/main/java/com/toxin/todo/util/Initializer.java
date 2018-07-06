@@ -12,6 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class Initializer {
@@ -35,10 +37,18 @@ public class Initializer {
 
     public void init() {
         log.info("-=START INIT=-");
+        changeHash();
         createRoles();
         createAdmin();
-        createUser();
         log.info("-=END INIT=-");
+    }
+
+    private void changeHash() {
+        userRepository.findAll().forEach(u -> {
+                u.setHash(passwordEncoder.encode(u.getHash()));
+                userRepository.save(u);
+            }
+        );
     }
 
     private void createRoles() {
@@ -60,18 +70,6 @@ public class Initializer {
         admin.setLogin("admin");
         admin.setHash(passwordEncoder.encode("root"));
         admin.setRole(roleRepository.findById(RoleEnum.ADMIN.getId()).orElse(null));
-
-        userRepository.save(admin);
-    }
-
-    private void createUser() {
-        if (userRepository.findByLogin("user") != null) return;
-
-        User admin = new User();
-
-        admin.setLogin("user");
-        admin.setHash(passwordEncoder.encode("root"));
-        admin.setRole(roleRepository.findById(RoleEnum.USER.getId()).orElse(null));
 
         userRepository.save(admin);
     }
