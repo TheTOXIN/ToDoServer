@@ -1,5 +1,6 @@
 package com.toxin.todo.dto;
 
+import com.toxin.todo.entity.Task;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,5 +13,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ToDoDtoResponse implements Serializable {
-    private List<UUID> tasksId;
+    private List<Task> tasks;
+    private String welcome;
 }
