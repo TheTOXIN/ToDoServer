@@ -22,7 +22,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
             .antMatchers("/rest/**").hasRole(RoleEnum.ADMIN.name())
-            .antMatchers("/rest/tasks/").hasRole(RoleEnum.USER.name())
+            .antMatchers("/rest/tasks/**").hasRole(RoleEnum.USER.name())
             .antMatchers("/todo/**").authenticated()
             .antMatchers("/hello").anonymous();
     }
