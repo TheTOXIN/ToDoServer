@@ -21,6 +21,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+	    .antMatchers("/*").permitAll()
             .antMatchers("/rest/users{(-)?[a-z,\\-]*}").hasRole(RoleEnum.ADMIN.name())
             .antMatchers("/rest/tasks{(-)?[a-z,\\-]*}").hasRole(RoleEnum.ADMIN.name())
             .antMatchers("/rest/tasks{(-)?[a-z,\\-]*}").hasRole(RoleEnum.USER.name())
