@@ -29,6 +29,7 @@ public class Configure {
         configuration.addAllowedMethod("GET");
         configuration.addAllowedMethod("DELETE");
         configuration.addAllowedMethod("PUT");
+        configuration.addAllowedMethod("PATCH");
         configuration.addAllowedMethod("OPTIONS");
         configuration.setAllowCredentials(true);
         configuration.setMaxAge(3600L);
