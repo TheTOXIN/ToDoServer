@@ -31,6 +31,7 @@ public class Task {
     @Column(nullable = false)
     private LocalDate date;
 
+    @JsonIgnore
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private User user;
