@@ -12,6 +12,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ToDoDtoResponse implements Serializable {
-    private List<UUID> tasks;
+    private List<UUID> tasksId;
     private String welcome;
 }
