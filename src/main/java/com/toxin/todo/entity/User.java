@@ -31,6 +31,7 @@ public class User {
     @ManyToOne(optional = false)
     private Role role;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Task> tasks = new ArrayList<>();
 

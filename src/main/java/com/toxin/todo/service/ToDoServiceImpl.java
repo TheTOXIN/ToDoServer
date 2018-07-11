@@ -54,12 +54,14 @@ public class ToDoServiceImpl implements ToDoService {
     @Override
     public ToDoDtoResponse todo(ToDoDtoRequest request) {
         String login = userRepository.getLoginById(request.getUserId());
-        return new ToDoDtoResponse(
-            taskRepository.findByUser_Id(request.getUserId())
-                .stream()
-                .sorted(Comparator.comparing(Task::getDate))
-                .collect(Collectors.toList()),
-            String.format(messages.get(rand.nextInt(messages.size())), login)
+        String message = messages.get(rand.nextInt(messages.size()));
+
+        return new ToDoDtoResponse(taskRepository.findByUser_Id(request.getUserId())
+            .stream()
+            .sorted(Comparator.comparing(Task::getDate))
+            .map(Task::getId)
+            .collect(Collectors.toList()),
+            String.format(message, login)
         );
     }
 
