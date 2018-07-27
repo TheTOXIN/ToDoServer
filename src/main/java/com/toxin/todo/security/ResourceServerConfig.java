@@ -21,10 +21,10 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-	    .antMatchers("/*").permitAll()
-            .antMatchers("/rest/users{(-)?[a-z,\\-]*}").hasRole(RoleEnum.ADMIN.name())
-            .antMatchers("/rest/tasks{(-)?[a-z,\\-]*}").hasRole(RoleEnum.ADMIN.name())
-            .antMatchers("/rest/tasks{(-)?[a-z,\\-]*}").hasRole(RoleEnum.USER.name())
+            .antMatchers("/*").permitAll()
+            .antMatchers("/rest/role/**").hasAuthority(RoleEnum.ADMIN.name())
+            .antMatchers("/rest/users/**").hasAuthority(RoleEnum.ADMIN.name())
+            .antMatchers("/rest/tasks/**").hasAnyAuthority(RoleEnum.ADMIN.name(), RoleEnum.USER.name())
             .antMatchers("/todo/**").authenticated()
             .antMatchers("/hello").anonymous();
     }
