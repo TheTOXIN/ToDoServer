@@ -10,7 +10,8 @@ import java.util.UUID;
 @Entity
 @Table(
     name = "tasks",
-    uniqueConstraints = @UniqueConstraint(columnNames = {"title", "user_id"})
+    indexes = @Index(columnList = "title, user_id", name = "tasks_title_user_idx"),
+    uniqueConstraints = @UniqueConstraint(columnNames = {"title", "user_id"}, name = "tasks_title_user_unique")
 )
 @NoArgsConstructor
 @AllArgsConstructor
