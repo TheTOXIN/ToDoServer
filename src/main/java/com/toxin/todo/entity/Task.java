@@ -9,7 +9,10 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "tasks")
+@Table(
+    name = "tasks",
+    uniqueConstraints = @UniqueConstraint(columnNames = {"title", "user_id"})
+)
 @NoArgsConstructor
 @AllArgsConstructor
 public class Task {
@@ -19,7 +22,7 @@ public class Task {
     @Column(nullable = false)
     private UUID id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String title;
 
     @Column
